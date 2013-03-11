@@ -1,18 +1,43 @@
-//
-//  main.cpp
-//  DocSearch
-//
-//  Created by Marat Khabibullin on 11.03.13.
-//  Copyright (c) 2013 Marat Khabibullin. All rights reserved.
-//
+#include "Indexer.h"
+#include "Searcher.h"
+#include "sphinxstem.h"
 
 #include <iostream>
+#include <vector>
+
+DWORD64 t1, t2;
+
+void PrintStat(DOCID doc_id){
+	if (doc_id % 5000==0) {
+		std::cout << doc_id << ": ";
+		t2 = GetTimeMs64();
+		std::cout << (t2 - t1) / 1000 << "ms\n";
+		t1 = t2;
+	}
+}
 
 int main(int argc, const char * argv[])
 {
-
-    // insert code here...
-    std::cout << "Hello, World!\n";
+	setlocale(LC_ALL, "Russian");
+	stem_en_init();
+	
+	BYTE *file_data = read_file("/Users/marat/TMP/big.txt");
+	
+	Index index;
+	Indexer indexer(&index, file_data);
+    
+	DWORD64 tstart = t1 = GetTimeMs64();
+	indexer.index_document(&PrintStat);
+	t2 = GetTimeMs64();
+	std::cout << "total: " << (t2 - tstart)/1000 << "ms\nsave\n";
+    
+	index.save_to_file("/Users/marat/TMP/index.bin");
+    
+	std::vector<WORDID> words;
+	parse_query("Napoleon money", words);
+	search(&index, words, file_data);
+    
+	delete[] file_data;
     return 0;
 }
 
