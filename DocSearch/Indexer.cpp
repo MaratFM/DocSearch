@@ -15,19 +15,29 @@ using namespace std;
 
 //////////////////////////////////////////////////////////////////////////////////////////
 IndexEntry::IndexEntry(){
-	in_docs.reserve(1024);
-	total_count = 0;
+	in_docs.reserve(16);
+	total_count = 0; // TODO rename to words_count
 	doc_count = 0;
 }
 
 IndexEntry::IndexEntry(DOCID doc_id,  WORD count ){
-	in_docs.reserve(1024);
+	in_docs.reserve(16);
 	WordInDoc in_doc = {doc_id, count};
 	in_docs.push_back(in_doc);
 	total_count = count;
 	doc_count = 1;
 }
-
+void IndexEntry::add_word_in_doc(DOCID doc_id,  WORD count){
+    total_count += count;
+    doc_count++;
+    if (doc_count <= MAX_WORD_FREQ){
+        WordInDoc in_doc = {doc_id, count};
+        in_docs.push_back(in_doc);
+    }else{
+        // ignore very frequent words
+        in_docs.clear();
+    }
+}
 void IndexEntry::serialize(const WORDID &word_id, ofstream &ofs){
 	if (ofs.good()){
 		ofs.write(reinterpret_cast<const char*>(&word_id), sizeof(word_id));
@@ -59,19 +69,12 @@ DocInfo * Index::add_doc(DOCID doc_id, DWORD offset, DWORD length, WORD words_co
     return doc_info;
 }
 
-void Index::add_entry(DOCID doc_id, WORDID word_id, unsigned short count ){
+void Index::add_entry(DOCID doc_id, WORDID word_id, WORD count ){
 	IndexEntry*& entry = entries[word_id];
 	if (entry == NULL){
 		entry = new IndexEntry(doc_id, count);
 	}else{
-		entry->total_count += count;
-		entry->doc_count++;
-		if (entry->doc_count <= 1000){	
-			WordInDoc in_doc = {doc_id, count};
-			entry->in_docs.push_back(in_doc);
-		}else{
-			entry->in_docs.clear();
-		}
+        entry->add_word_in_doc(doc_id, count);		
 	}
 }
 
@@ -82,7 +85,7 @@ void Index::save_to_file(const char *file_path){
 		
 	bin_file.close();
 
-
+#if DEBUG
 	ofstream index_file("/Users/marat/TMP/index.txt");
 
 	for(auto it = entries.begin(); it != entries.end(); it++) {
@@ -94,13 +97,20 @@ void Index::save_to_file(const char *file_path){
 		index_file << "\n";
 	}
 	index_file.close();
-
+#endif //DEBUG
 }
 
 void Index::clear(){
+    for(auto it = entries.begin(); it != entries.end(); it++)
+        delete it->second;
+    for(auto it = doc_meta.begin(); it != doc_meta.end(); it++)
+        delete it->second;
 	entries.clear();
 	doc_meta.clear();
 	total_words = 0;
+}
+Index::~Index(){
+    clear();
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -119,23 +129,21 @@ void Indexer::index_document(StatCallback callback){
 	BYTE *end, *start = file_data;
 	while(*start){
 		for(end=start; *end && *end!='\n'; end++);
-		doc_id++;	
-         DocInfo *doc_info = new DocInfo();
-         doc_info->file_offset = start-file_data;
-         doc_info->length = end-start+1;
-         doc_info->words_count = 0;
+		doc_id++;
+        DocInfo *doc_info = new DocInfo();
+        doc_info->file_offset = start-file_data;
+        doc_info->length = end-start+1;
+        doc_info->words_count = 0;
 			
 		callback(doc_id);
 		counter.flush();
 	
-		WORD words_in_doc = 0;
-		BYTE buffer[1024];
-		while(get_token(&start, end, buffer, 1024)){
-			words_in_doc++;
+		BYTE buffer[MAX_TERM_LEN];
+		while(get_token(&start, end, buffer, MAX_TERM_LEN)){
+			doc_info->words_count++;
 			counter.push(get_word_id(buffer));
 		}
-         doc_info->words_count = words_in_doc;
-         index->add_doc(doc_id, doc_info);
+        index->add_doc(doc_id, doc_info);
 
 
 		WORDID word;

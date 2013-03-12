@@ -7,8 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7903557C16EE6055001F12D1 /* sphinxstemen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7903557A16EE6055001F12D1 /* sphinxstemen.cpp */; };
 		79E1390916EE57B400A8D956 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79E1390816EE57B400A8D956 /* main.cpp */; };
 		79E1390B16EE57B400A8D956 /* DocSearch.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 79E1390A16EE57B400A8D956 /* DocSearch.1 */; };
+		79E1391C16EE57F900A8D956 /* common.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79E1391116EE57F900A8D956 /* common.cpp */; };
+		79E1391D16EE57F900A8D956 /* crc32.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79E1391316EE57F900A8D956 /* crc32.cpp */; };
+		79E1391F16EE57F900A8D956 /* Indexer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79E1391616EE57F900A8D956 /* Indexer.cpp */; };
+		79E1392016EE57F900A8D956 /* Searcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79E1391816EE57F900A8D956 /* Searcher.cpp */; };
+		79E1392116EE57F900A8D956 /* sphinxstemru.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79E1391B16EE57F900A8D956 /* sphinxstemru.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,9 +31,20 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7903557A16EE6055001F12D1 /* sphinxstemen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sphinxstemen.cpp; sourceTree = "<group>"; };
 		79E1390516EE57B400A8D956 /* DocSearch */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = DocSearch; sourceTree = BUILT_PRODUCTS_DIR; };
 		79E1390816EE57B400A8D956 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		79E1390A16EE57B400A8D956 /* DocSearch.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = DocSearch.1; sourceTree = "<group>"; };
+		79E1391116EE57F900A8D956 /* common.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = common.cpp; sourceTree = "<group>"; };
+		79E1391216EE57F900A8D956 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
+		79E1391316EE57F900A8D956 /* crc32.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = crc32.cpp; sourceTree = "<group>"; };
+		79E1391416EE57F900A8D956 /* crc32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crc32.h; sourceTree = "<group>"; };
+		79E1391616EE57F900A8D956 /* Indexer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Indexer.cpp; sourceTree = "<group>"; };
+		79E1391716EE57F900A8D956 /* Indexer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Indexer.h; sourceTree = "<group>"; };
+		79E1391816EE57F900A8D956 /* Searcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Searcher.cpp; sourceTree = "<group>"; };
+		79E1391916EE57F900A8D956 /* Searcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Searcher.h; sourceTree = "<group>"; };
+		79E1391A16EE57F900A8D956 /* sphinxstem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sphinxstem.h; sourceTree = "<group>"; };
+		79E1391B16EE57F900A8D956 /* sphinxstemru.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sphinxstemru.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,8 +77,19 @@
 		79E1390716EE57B400A8D956 /* DocSearch */ = {
 			isa = PBXGroup;
 			children = (
+				79E1391116EE57F900A8D956 /* common.cpp */,
+				79E1391216EE57F900A8D956 /* common.h */,
+				79E1391316EE57F900A8D956 /* crc32.cpp */,
+				79E1391416EE57F900A8D956 /* crc32.h */,
+				79E1391616EE57F900A8D956 /* Indexer.cpp */,
+				79E1391716EE57F900A8D956 /* Indexer.h */,
+				79E1391816EE57F900A8D956 /* Searcher.cpp */,
+				79E1391916EE57F900A8D956 /* Searcher.h */,
+				79E1391A16EE57F900A8D956 /* sphinxstem.h */,
+				79E1391B16EE57F900A8D956 /* sphinxstemru.cpp */,
 				79E1390816EE57B400A8D956 /* main.cpp */,
 				79E1390A16EE57B400A8D956 /* DocSearch.1 */,
+				7903557A16EE6055001F12D1 /* sphinxstemen.cpp */,
 			);
 			path = DocSearch;
 			sourceTree = "<group>";
@@ -118,6 +146,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				79E1390916EE57B400A8D956 /* main.cpp in Sources */,
+				79E1391C16EE57F900A8D956 /* common.cpp in Sources */,
+				79E1391D16EE57F900A8D956 /* crc32.cpp in Sources */,
+				79E1391F16EE57F900A8D956 /* Indexer.cpp in Sources */,
+				79E1392016EE57F900A8D956 /* Searcher.cpp in Sources */,
+				79E1392116EE57F900A8D956 /* sphinxstemru.cpp in Sources */,
+				7903557C16EE6055001F12D1 /* sphinxstemen.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,6 +248,7 @@
 				79E1391016EE57B400A8D956 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

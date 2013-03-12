@@ -24,6 +24,7 @@ struct IndexEntry {
 
 	IndexEntry();
 	IndexEntry(DOCID doc_id,  WORD count );
+    void add_word_in_doc(DOCID doc_id,  WORD count);
 	void serialize(const WORDID &word_id, std::ofstream &ofs);
 };
 
@@ -36,6 +37,7 @@ class crc32Hash{
 
 class Index{
 public:
+    ~Index();
 	DocInfo *  add_doc(DOCID doc_id, DocInfo* doc_info);
 	DocInfo *  add_doc(DOCID doc_id, DWORD offset, DWORD length, WORD words_count);
 	void add_entry(DOCID doc_id, WORDID word_id, unsigned short count );

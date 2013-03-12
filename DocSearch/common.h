@@ -8,22 +8,24 @@ typedef unsigned long DWORD;
 typedef unsigned short WORD;
 typedef unsigned char BYTE;
 
-//#define DEBUG 0
-#define BM25_k1 2.0
-#define BM25_b 0.75
+#define DEBUG 0
 
 typedef DWORD WORDID;
 typedef DWORD DOCID;
 typedef void (*StatCallback)(DOCID doc_id);
 
-
+#define BM25_k1 2.0
+#define BM25_b 0.75
 #define MIN_TERM_LEN 3
 #define MAX_TERM_LEN 1024
+#define MAX_DOC_LEN 1024
+#define MAX_WORD_FREQ 1000
 
 bool get_token(BYTE ** start, const BYTE * end, BYTE * buffer, const int max_len);
 DWORD get_word_id(BYTE * s);
 DWORD64 GetTimeMs64();
 BYTE* read_file(const char *file_path);
+void close_file(BYTE * file_data);
 
 template<typename T> class SimpleCounter{
 public:

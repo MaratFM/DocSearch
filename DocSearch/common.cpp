@@ -24,6 +24,9 @@ BYTE* read_file(const char *file_path){
 	}
 	return NULL;
 }
+void close_file(BYTE * file_data){
+    delete[] file_data;
+}
 
 DWORD get_word_id(BYTE* cstr){
 	stem_en(cstr);
